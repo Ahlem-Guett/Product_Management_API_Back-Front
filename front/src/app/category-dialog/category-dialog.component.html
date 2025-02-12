@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{ data ? 'Modifier' : 'Ajouter' }} une catégorie</h2>
+<mat-dialog-content>
+  <mat-form-field class="full-width">
+    <mat-label>Nom</mat-label>
+    <input matInput [(ngModel)]="category.name" required>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput [(ngModel)]="category.description" required></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Annuler</button>
+  <button mat-raised-button color="primary" (click)="save()">Enregistrer</button>
+</mat-dialog-actions>

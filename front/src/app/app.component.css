@@ -1,0 +1,5 @@
+.container {
+    margin: 20px;
+    padding-bottom: 60px; /* Pour éviter que le footer cache le contenu */
+  }
+  

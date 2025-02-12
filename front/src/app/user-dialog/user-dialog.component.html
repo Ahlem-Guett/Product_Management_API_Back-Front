@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{ data.user ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="userForm">
+    <mat-form-field class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Rôle</mat-label>
+      <mat-select formControlName="role" required>
+        <mat-option value="admin">Admin</mat-option>
+        <mat-option value="manager">Manager</mat-option>
+        <mat-option value="client">Client</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="userForm.invalid">
+    {{ data.user ? 'Modifier' : 'Ajouter' }}
+  </button>
+</mat-dialog-actions>

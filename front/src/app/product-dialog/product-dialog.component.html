@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>{{ data ? 'Modifier' : 'Ajouter' }} un produit</h2>
+<mat-dialog-content>
+  <mat-form-field class="full-width">
+    <mat-label>Nom</mat-label>
+    <input matInput [(ngModel)]="product.name" required>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput [(ngModel)]="product.description" required></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Prix</mat-label>
+    <input matInput type="number" [(ngModel)]="product.price" required>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Stock</mat-label>
+    <input matInput type="number" [(ngModel)]="product.stock" required>
+  </mat-form-field>
+
+  <!-- Sélection de la catégorie -->
+  <mat-form-field class="full-width">
+    <mat-label>Catégorie</mat-label>
+    <mat-select [(ngModel)]="product.category" required>
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{ category.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Annuler</button>
+  <button mat-raised-button color="primary" (click)="save()">Enregistrer</button>
+</mat-dialog-actions>

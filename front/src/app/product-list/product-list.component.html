@@ -1,0 +1,70 @@
+<div class="product-container">
+  <h2>Gestion des Produits</h2>
+  <!-- Filtres -->
+  <div class="filters">
+    <mat-form-field>
+      <mat-label>Filtrer par catégorie</mat-label>
+      <mat-select [(ngModel)]="selectedCategory" (selectionChange)="applyFilters()">
+        <mat-option value="">Toutes les catégories</mat-option>
+        <mat-option *ngFor="let category of categories" [value]="category.name">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Prix Min</mat-label>
+      <input matInput type="number" [(ngModel)]="priceMin" (input)="applyFilters()">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Prix Max</mat-label>
+      <input matInput type="number" [(ngModel)]="priceMax" (input)="applyFilters()">
+    </mat-form-field>
+  </div>
+
+  <button *ngIf="isAdminOrManager()" mat-raised-button color="primary" (click)="openDialog()">Ajouter un produit</button>
+
+  <table mat-table [dataSource]="filteredProducts" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nom </th>
+      <td mat-cell *matCellDef="let product"> {{ product.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let product"> {{ product.description }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Prix </th>
+      <td mat-cell *matCellDef="let product"> {{ product.price | currency }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef> Stock </th>
+      <td mat-cell *matCellDef="let product"> {{ product.stock }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef> Catégorie </th>
+      <td mat-cell *matCellDef="let product"> {{ product.category?.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let product">
+        <button *ngIf="isAdminOrManager()" mat-icon-button (click)="editProduct(product)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="isAdminOrManager()" mat-icon-button color="warn" (click)="deleteProduct(product)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
