@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -13,6 +15,7 @@ import { RoleGuard } from './auth/role.guard';
 import { UserListComponent } from './user-list/user-list.component';
 import { AdminGuard } from './auth/admin.guard';
 import { CategoryListComponent } from './category-list/category-list.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' },
@@ -35,16 +38,18 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [LoginComponent,
+  declarations: [
+  ],
+  imports: [RouterModule.forRoot(routes),
+    CommonModule,
     RegisterComponent,
+    FooterComponent,
+    NavbarComponent,
     UnauthorizedComponent,
     UserListComponent,
     ProductListComponent,
     CategoryListComponent,
-    NavbarComponent,
-    FooterComponent,
   ],
-  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

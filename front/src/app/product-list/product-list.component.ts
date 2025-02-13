@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { FormsModule } from '@angular/forms'; 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
 import { ProductService } from '../services/product.service';
 import { CategoryService } from '../services/category.service';
 import { Product } from '../models/product.model';
@@ -10,7 +19,18 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTableModule,
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule
+  ]
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
@@ -74,7 +94,7 @@ export class ProductListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        product ? this.updateProduct(result) : this.addProduct(result);
+        product ? this.editProduct(result) : this.addProduct(result);
       }
     });
   }
@@ -83,9 +103,9 @@ export class ProductListComponent implements OnInit {
     this.productService.addProduct(product).subscribe(() => this.loadProducts());
   }
 
-  updateProduct(product: Product) {
+  editProduct(product: Product) {
     this.productService.updateProduct(product.id!, product).subscribe(() => this.loadProducts());
-  }
+  }   
 
   deleteProduct(id: number) {
     this.productService.deleteProduct(id).subscribe(() => this.loadProducts());

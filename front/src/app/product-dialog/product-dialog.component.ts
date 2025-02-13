@@ -1,13 +1,29 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms'; 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
+
 import { Product } from '../models/product.model';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category.model';
 
 @Component({
   selector: 'app-product-dialog',
+  standalone: true,
   templateUrl: './product-dialog.component.html',
-  styleUrls: ['./product-dialog.component.css']
+  styleUrls: ['./product-dialog.component.css'],
+  imports: [
+    CommonModule, 
+    MatSelectModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    MatButton]
 })
 export class ProductDialogComponent implements OnInit {
   product: Product;
@@ -29,7 +45,8 @@ export class ProductDialogComponent implements OnInit {
 
       // Si on édite un produit, on s'assure que la catégorie est bien référencée
       if (this.product.category && typeof this.product.category === 'string') {
-        this.product.category = this.categories.find(cat => cat.name === this.product.category) || {} as Category;
+        this.categories.find(cat => cat.name === this.product.category?.name) || {} as Category;
+
       }
     });
   }

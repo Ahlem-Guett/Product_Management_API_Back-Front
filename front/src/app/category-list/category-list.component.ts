@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatIcon } from '@angular/material/icon';
+
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category.model';
 import { CategoryDialogComponent } from '../category-dialog/category-dialog.component';
@@ -7,7 +11,13 @@ import { CategoryDialogComponent } from '../category-dialog/category-dialog.comp
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
-  styleUrls: ['./category-list.component.css']
+  styleUrls: ['./category-list.component.css'],
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatTableModule,
+    MatIcon
+  ]
 })
 export class CategoryListComponent implements OnInit {
   categories: Category[] = [];

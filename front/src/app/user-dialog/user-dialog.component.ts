@@ -1,12 +1,27 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
+
 import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-dialog',
   templateUrl: './user-dialog.component.html',
-  styleUrls: ['./user-dialog.component.css']
+  styleUrls: ['./user-dialog.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatFormFieldModule, 
+    MatDialogModule, 
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatButton],
 })
 export class UserDialogComponent implements OnInit {
   userForm: FormGroup;
